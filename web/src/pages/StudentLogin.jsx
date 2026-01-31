@@ -6,8 +6,8 @@ export default function StudentLogin() {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true);
@@ -24,17 +24,15 @@ export default function StudentLogin() {
       return;
     }
 
-    // ✅ login success (all devices)
+    // ✅ SUCCESS → dashboard
     nav("/student/dashboard");
   };
 
   return (
     <div className="card">
-      <div className="badge">🎓 Student Portal</div>
-      <h2 className="h2">Student Login</h2>
+      <h2>Student Login</h2>
 
       <input
-        className="input"
         type="email"
         placeholder="Email"
         value={email}
@@ -42,7 +40,6 @@ export default function StudentLogin() {
       />
 
       <input
-        className="input"
         type="password"
         placeholder="Password"
         value={password}
@@ -51,11 +48,7 @@ export default function StudentLogin() {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button
-        className="btn btn-primary"
-        onClick={handleLogin}
-        disabled={loading}
-      >
+      <button onClick={handleLogin} disabled={loading}>
         {loading ? "Logging in..." : "Login"}
       </button>
     </div>
