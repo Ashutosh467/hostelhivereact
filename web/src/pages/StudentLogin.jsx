@@ -7,23 +7,24 @@ export default function StudentLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
     setLoading(true);
+    setError("");
 
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
 
-    setLoading(false);
-
     if (error) {
-      alert(error.message);
+      setError(error.message);
+      setLoading(false);
       return;
     }
 
-    // ✅ LOGIN SUCCESS (ALL DEVICES)
+    // ✅ login success (all devices)
     nav("/student/dashboard");
   };
 
@@ -34,23 +35,21 @@ export default function StudentLogin() {
 
       <input
         className="input"
+        type="email"
+        placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        type="email"
       />
-
-      <div className="hr" />
 
       <input
         className="input"
+        type="password"
+        placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
       />
 
-      <div className="hr" />
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
       <button
         className="btn btn-primary"
