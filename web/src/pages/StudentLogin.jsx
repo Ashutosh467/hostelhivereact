@@ -1,28 +1,63 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../config/supabase";
 
 export default function StudentLogin() {
   const nav = useNavigate();
-  const [id, setId] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    setLoading(true);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    setLoading(false);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    // ✅ LOGIN SUCCESS (ALL DEVICES)
+    nav("/student/dashboard");
+  };
 
   return (
     <div className="card">
       <div className="badge">🎓 Student Portal</div>
-      <h2 className="h2">Login (UI Only)</h2>
-      <p className="p">Prototype login: click Login to open dashboard</p>
-      <div className="hr" />
+      <h2 className="h2">Student Login</h2>
+
       <input
         className="input"
-        value={id}
-        onChange={(e) => setId(e.target.value)}
-        placeholder="Student ID / Phone"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        type="email"
       />
+
       <div className="hr" />
+
+      <input
+        className="input"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        type="password"
+      />
+
+      <div className="hr" />
+
       <button
         className="btn btn-primary"
-        onClick={() => nav("/student/dashboard")}
+        onClick={handleLogin}
+        disabled={loading}
       >
-        Login
+        {loading ? "Logging in..." : "Login"}
       </button>
     </div>
   );
