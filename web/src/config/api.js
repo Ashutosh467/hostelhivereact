@@ -1,3 +1,1 @@
-const BASE_URL = "/api";
-
-export default BASE_URL;
+export const BASE_URL = "https://hostelhive-backend-nhp2.onrender.com/api";
