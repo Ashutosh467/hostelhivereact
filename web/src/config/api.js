@@ -1,1 +1,2 @@
-export const BASE_URL = "https://hostelhive-backend-nhp2.onrender.com/api";
+// 🔒 Supabase-only auth
+export const BASE_URL = "";
