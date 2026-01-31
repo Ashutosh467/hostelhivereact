@@ -10,23 +10,27 @@ dotenv.config();
 
 const app = express();
 
-/* 🔥 FIXED CORS (ALL DEVICES) */
+/* ✅ SIMPLE & SAFE CORS (NO DEVICE ISSUE) */
 app.use(
   cors({
     origin: "https://superlative-brioche-835217.netlify.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
 );
 
-/* 🔥 VERY IMPORTANT: handle preflight */
-app.options("*", cors());
-
 app.use(express.json());
 
-app.get("/", (req, res) => res.send("HostelHive Backend Running ✅"));
+/* ✅ ROOT CHECK */
+app.get("/", (req, res) => {
+  res.send("HostelHive Backend Running ✅");
+});
 
+/* ✅ API ROOT (VERY IMPORTANT FOR NETLIFY PROXY) */
+app.get("/api", (req, res) => {
+  res.send("API OK ✅");
+});
+
+/* ✅ REAL ROUTES */
 app.use("/api/auth", authRoutes);
 app.use("/api/outpass", outpassRoutes);
 
