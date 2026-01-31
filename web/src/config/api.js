@@ -1,1 +1,1 @@
-const BASE_URL = "https://hostelhive-backend-nhp2.onrender.com";
+const BASE_URL = "/api";
