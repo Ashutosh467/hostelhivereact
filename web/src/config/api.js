@@ -1,1 +1,1 @@
-export const API_BASE = "http://localhost:5000";
+const BASE_URL = "https://hostelhive-backend-nhp2.onrender.com";
