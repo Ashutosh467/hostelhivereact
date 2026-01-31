@@ -1,8 +1,13 @@
 [build]
   base = "web"
   command = "npm run build"
-  publish = "dist"
+  publish = "web/dist"
 
+[[redirects]]
+  from = "/api/*"
+  to = "https://hostelhive-backend-nhp2.onrender.com/api/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/*"
